@@ -79,11 +79,14 @@ def main(stdscr):
         elif k == "KEY_RIGHT":
             right(window=window, cursor=cursor, buffer=buffer)
         elif k == "KEY_UP":
-            cursor.up()
+            cursor.up(buffer)
             window.up(cursor)
         elif k == "KEY_DOWN":
             cursor.down(buffer)
             window.down(buffer, cursor)
+        elif k == "\n":
+            buffer.split(cursor)
+            right(window, cursor, buffer)
         elif k in ("KEY_BACKSPACE", "\x7f"):
             if (cursor.row, cursor.col) > (0, 0):
                 left(window=window, cursor=cursor, buffer=buffer)

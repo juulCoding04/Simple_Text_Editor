@@ -6,15 +6,15 @@ class Cursor:
     def new_col(self, buffer):
         self.col = min(self.col, len(buffer[self.row]))
 
-    def up(self):
+    def up(self, buffer):
         if self.row > 0:
             self.row -= 1
-            self.new_col()
+            self.new_col(buffer)
 
     def down(self, buffer):
         if self.row < len(buffer) - 1:
             self.row += 1
-            self.new_col()
+            self.new_col(buffer)
 
     def left (self, buffer):
         if self.col > 0:

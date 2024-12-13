@@ -26,3 +26,9 @@ class Buffer:
             current = self.lines.pop(row)
             new = current[:col] + current[col + 1:]
             self.lines.insert(row, new)
+    
+    def split(self, cursor):
+        row, col = cursor.row, cursor.col
+        current = self.lines.pop(row)
+        self.lines.insert(row, current[:col])
+        self.lines.insert(row + 1, current[col:])
