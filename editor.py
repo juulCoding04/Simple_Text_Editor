@@ -12,14 +12,17 @@ def right(window, cursor, buffer):
     cursor.right(buffer)
     window.up(cursor)
 
+def printHelp():
+    print("-h or --help for help")
+    print("-f <filename>.txt or --file <filename>.txt to open a file")
+
 def get_args():
     n = len(sys.argv)
     txt_file = ""
     help_bit = 0
 
     for arg in range(1, n):
-        if sys.argv[arg] == "-h":
-            print("You can search for help here")
+        if sys.argv[arg] == "-h" or sys.argv[arg] == "--help":
             help_bit = 1;
         if sys.argv[arg] == "-f" or sys.argv[arg] == "--file":
             txt_file = sys.argv[arg+1]
@@ -27,18 +30,7 @@ def get_args():
     return txt_file, help_bit
 
 def main(stdscr):
-    txt_file, help_bit = get_args()
     k = ''
-
-    if help_bit:
-        return -1
-
-    if os.path.exists(txt_file):
-        print(f"File {txt_file} found")
-        print("----------")
-    else:
-        print("File Not Found")
-        return -1
 
     with open(txt_file) as f:
         lines = f.read().splitlines()
@@ -102,4 +94,10 @@ def main(stdscr):
             break
 
 if __name__ == "__main__":
-    curses.wrapper(main)
+    txt_file, help_bit = get_args()
+    if help_bit:
+        printHelp()
+    elif os.path.exists(txt_file):
+        curses.wrapper(main)
+    else:
+        print(f"File {txt_file} Not Found")
