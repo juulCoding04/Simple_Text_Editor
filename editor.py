@@ -32,7 +32,7 @@ def get_args():
 def main(stdscr):
     k = ''
 
-    with open(txt_file) as f:
+    with open(txt_file, 'r') as f:
         lines = f.read().splitlines()
         buffer = Buffer(lines)
 
@@ -41,7 +41,7 @@ def main(stdscr):
 
     curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_WHITE)
 
-    while (k != '^'):
+    while (True):
         # Initialization
         stdscr.erase()
         height, width = stdscr.getmaxyx()
@@ -83,6 +83,8 @@ def main(stdscr):
             if (cursor.row, cursor.col) > (0, 0):
                 left(window=window, cursor=cursor, buffer=buffer)
                 buffer.delete(cursor)
+        elif k == '^':
+            break
         else:
             buffer.insert(cursor, k)
             for i in k:
@@ -91,6 +93,11 @@ def main(stdscr):
     while(True):
         k = stdscr.getkey()
         if k == 'q':
+            break
+        if k == 's':
+            buffer.lines = [line if line.endswith('\n') else line + '\n' for line in buffer.lines]
+            with open(txt_file, 'w') as f:
+                f.writelines(buffer.lines)
             break
 
 if __name__ == "__main__":
