@@ -24,8 +24,13 @@ class Buffer:
         row, col = cursor.row, cursor.col
         if (row, col) < (self.bottom(), len(self[row])):
             current = self.lines.pop(row)
-            new = current[:col] + current[col + 1:]
-            self.lines.insert(row, new)
+            if col < len(current):
+                new = current[:col] + current[col + 1:]
+                self.lines.insert(row, new)
+            else:
+                next = self.lines.pop(row)
+                new = current + next
+                self.lines.insert(row, new)
     
     def split(self, cursor):
         row, col = cursor.row, cursor.col

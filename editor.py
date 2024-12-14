@@ -49,12 +49,12 @@ def main(stdscr):
 
     curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_WHITE)
 
-    while (k != 'q'):
+    while (k != '^'):
         # Initialization
         stdscr.erase()
         height, width = stdscr.getmaxyx()
 
-        statusbarstr = "Press 'q' to exit | STATUS BAR | Pos: {}, {}".format(cursor.col, cursor.row)
+        statusbarstr = "Press '^q' to exit | Press '^s' to save | Pos: {}, {}".format(cursor.col, cursor.row)
 
         # Render status bar
         stdscr.attron(curses.color_pair(3))
@@ -95,6 +95,11 @@ def main(stdscr):
             buffer.insert(cursor, k)
             for i in k:
                 right(window, cursor, buffer)
+    
+    while(True):
+        k = stdscr.getkey()
+        if k == 'q':
+            break
 
 if __name__ == "__main__":
     curses.wrapper(main)
