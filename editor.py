@@ -46,7 +46,7 @@ def main(stdscr):
         stdscr.erase()
         height, width = stdscr.getmaxyx()
 
-        statusbarstr = "Press '^q' to exit | Press '^s' to save | Pos: {}, {}".format(cursor.col, cursor.row)
+        statusbarstr = "'CTRL-X' + 'y' to exit and save | 'CTRL-X' + 'n' to exit without saving | Pos: {}, {}".format(cursor.col, cursor.row)
 
         # Render status bar
         stdscr.attron(curses.color_pair(3))
@@ -83,7 +83,7 @@ def main(stdscr):
             if (cursor.row, cursor.col) > (0, 0):
                 left(window=window, cursor=cursor, buffer=buffer)
                 buffer.delete(cursor)
-        elif k == '^':
+        elif ord(k) == 24: # CRTL-X
             break
         else:
             buffer.insert(cursor, k)
@@ -92,9 +92,9 @@ def main(stdscr):
     
     while(True):
         k = stdscr.getkey()
-        if k == 'q':
+        if k == 'n':
             break
-        if k == 's':
+        if k == 'y':
             buffer.lines = [line if line.endswith('\n') else line + '\n' for line in buffer.lines]
             with open(txt_file, 'w') as f:
                 f.writelines(buffer.lines)

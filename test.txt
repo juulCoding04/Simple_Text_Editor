@@ -1,1 +1,5 @@
-joepieeeeeeeee!
+ToDo:
+- welke dingen mist deze editor nog?
+- exit en save met control laten werken ipv met hoetje.
+- chortcuts voor: begin of line, end of line, begin of page, end of page, select all
+- window up/down scroll updaten want nu is het een beetje wonky
