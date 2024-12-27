@@ -29,3 +29,7 @@ class Cursor:
         elif self.row < len(buffer) - 1:
             self.row += 1
             self.col = 0
+
+    def goto_end(self, buffer):
+        if self.col < len(buffer[self.row]):
+            self.col = len(buffer[self.row])
